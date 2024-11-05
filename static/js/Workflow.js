@@ -147,11 +147,35 @@ class Workflow {
       }
       else {
         //add_to_cc_list.push(cc_group[counter].email);
-          this.carbon_copy_group.push(
-          {
-            "label": cc_group_data['label'],
-            "email": cc_group[counter].email
-          });
+          let cc_list = "";
+          if((cc_group[counter].email).includes(',')){
+            cc_list = (cc_group[counter].email).split(",");
+            for (let counter = 0; counter < cc_list.length; counter++) {
+              this.carbon_copy_group.push(
+                {
+                  "label": cc_group_data['label'],
+                  "email": cc_list[counter]
+                }
+              );
+            }
+          } else if((cc_group[counter].email).includes(';')){
+            cc_list = (cc_group[counter].email).split(";");
+            for (let counter = 0; counter < cc_list.length; counter++) {
+              this.carbon_copy_group.push(
+                {
+                  "label": cc_group_data['label'],
+                  "email": cc_list[counter]
+                }
+              );
+            }
+          } else {
+            this.carbon_copy_group.push(
+              {
+                "label": cc_group_data['label'],
+                "email": cc_list[counter]
+              }
+            );
+          }
       }
     }
   }
